@@ -8,7 +8,12 @@ app = typer.Typer()
 @app.command()
 def main(
     input_file: str = typer.Argument(..., help="Path to the input CSV file"),
-    name: str = typer.Option("frequency_response", help="Base name for output files and plot title"),
+    name: str = typer.Option(
+        "frequency_response", help="Base name for output files and plot title"
+    ),
+    ylim: tuple[float, float] = typer.Option(
+        None, help="Fixed y-axis limits as (min, max)"
+    ),
 ):
     """
     Load frequency response data from a CSV file, plot it, and save both the plot and a cleaned CSV.
@@ -26,12 +31,14 @@ def main(
     plt.xlabel("Frequency (Hz)")
     plt.ylabel("Response (dB)")
     plt.xlim(20, 20000)
+    if ylim:
+        plt.ylim(ylim)
     plt.xticks(
         [20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 20000],
         labels=["20", "50", "100", "200", "500", "1k", "2k", "5k", "10k", "20k"],
     )
     plt.tight_layout()
-    
+
     plot_filename = f"{name}.png"
     csv_filename = f"clean_{name}.csv"
 
