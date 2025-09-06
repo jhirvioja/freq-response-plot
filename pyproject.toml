@@ -1,0 +1,15 @@
+[project]
+name = "freq-response-plot"
+version = "0.1.0"
+description = "Plot frequency response data from CSV using Typer, Pandas, and Matplotlib"
+readme = "README.md"
+requires-python = ">=3.9"
+
+dependencies = [
+    "typer[all]",
+    "pandas",
+    "matplotlib",
+]
+
+[project.scripts]
+freq-response-plot = "script:app"
